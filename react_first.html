@@ -22,11 +22,22 @@
     const span = React.createElement(
       "span",
       {
-        id: "span-is-fuxk",
-        style: { color: "red" },
+        onMouseEnter: () => {
+          console.log("sdfsd");
+        },
       },
       "Hello I'm a span"
     );
-    const but = ReactDOM.render(span, root);
+    const btn = React.createElement(
+      "button",
+      {
+        onClick: () => {
+          console.log("됨???");
+        },
+      },
+      "click me"
+    );
+    const container = React.createElement("div", null, [span, btn]);
+    const but = ReactDOM.render(container, root);
   </script>
 </html>
