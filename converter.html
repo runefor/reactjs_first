@@ -22,24 +22,44 @@
     const root = document.getElementById("root");
 
     const App = () => {
-      const [minutes, setMinutes] = React.useState();
-      const onChangeMi = (event) => {
-        setMinutes(event.target.value);
+      const [amount, setAmount] = React.useState(0);
+      const [filp, setFilp] = React.useState(false);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const Reset = () => setAmount(0);
+      const onFlip = () => {
+        Reset();
+        setFilp((current) => !current);
       };
       return (
         <div>
           <h1>Super Converter</h1>
-          <label htmlFor="minutes">minutes</label>
-          <input
-            value={minutes}
-            id="minutes"
-            placeholder="Minutes"
-            type="number"
-            onChange={onChangeMi}
-          />
-          <h4>You want to converter {minutes}</h4>
-          <label htmlFor="hours">hours</label>
-          <input id="hours" placeholder="Hours" type="number" />
+          <div>
+            <label htmlFor="minutes">minutes</label>
+            <input
+              value={filp ? amount * 60 : amount}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange}
+              disabled={filp}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="hours">hours</label>
+            <input
+              value={Math.round(filp ? amount : amount / 60)}
+              id="hours"
+              placeholder="Hours"
+              type="number"
+              onChange={onChange}
+              disabled={!filp}
+            />
+          </div>
+          <button onClick={Reset}>Reset</button>
+          <button onClick={onFlip}>{filp ? "hoursToMin" : "minToHours"}</button>
         </div>
       );
     };
